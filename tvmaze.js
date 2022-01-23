@@ -54,13 +54,13 @@ function populateShows(shows) {
 
 	for (let show of shows) {
 		let $item = $(
-			`<div class="col-md-6 col-lg-3 Show" data-show-id="${show.id}">
+			`<div class="col-md-6 col-lg-3 Show mb-3" data-show-id="${show.id}">
          <div class="card" data-show-id="${show.id}">
            <div class="card-body">
              <h5 class="card-title">${show.name}</h5>
              <img class="card-img-top" src="${show.image}">
              <p class="card-text">${show.summary}</p>
-             <button class="btn btn-secondary episodesBtn" data-bs-toggle="modal" data-bs-target="#reg-modal">Episodes</button>
+             <button type="button" class="btn btn-secondary episodesBtn" data-toggle="modal" data-target="#reg-modal">Episodes</button>
            </div>
          </div>
        </div>
@@ -121,13 +121,14 @@ function populateEpisodes(episodes) {
 		);
 		$episodesList.append($item);
 	}
-	$episodesArea.fadeIn(1000);
+	$episodesArea.show();
 }
 
 $("#shows-list").on(
 	"click",
 	".episodesBtn",
 	async function handleEpisodesButton() {
+		//get the show ID from the HTML data
 		const showId = $(this).parents().eq(1).data("show-id");
 		const episodes = await getEpisodes(showId);
 		populateEpisodes(episodes);
